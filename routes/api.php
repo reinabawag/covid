@@ -23,4 +23,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/question', 'QuestionController@store');
     Route::get('/question', 'QuestionController@getQuestion');
     Route::post('/question/update/{id}', 'QuestionController@update');
+    Route::delete('/question/{question}', 'QuestionController@destroy');
 });

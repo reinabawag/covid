@@ -59,10 +59,10 @@
                         <label for="{{ $index }}">{{ $index + 1 }}. {{ $question->question }}</label>
                         <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans_{{ $question->id }}" class="form-control" required>
                             <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="No" selected>No</option>
                         </select>
                         @if ($question->is_additional)
-                            <input v-if="info.ans_{{ $question->id }} == 'Yes'" v-model="info.ans_{{ $question->id }}_is_additional" type="text" class="form-control mt-2 mb-2" placeholder="If yes provide your answer here" required>
+                            <input v-if="info.ans_{{ $question->id }} == 'Yes'" v-model="info.ans_{{ $question->id }}_is_additional" type="text" class="form-control mt-2 mb-2" placeholder="If yes, provide your answer here" required>
                         @endif
                     </div>
                 @endforeach

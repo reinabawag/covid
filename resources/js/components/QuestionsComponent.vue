@@ -103,8 +103,16 @@ export default {
             })          
         },
         deleteQuestion() {
-            this.$emit('delete');
-            $('#myModal').modal('toggle');
+            axios
+            .delete(`/api/question/${this.question.id}?api_token=${this.api_token}`, this.question)
+            .then((response) => {
+                this.$emit('delete');
+                toastr.success(response.data.message, 'Success');
+                $('#myModal').modal('toggle');
+            })
+            .catch(function(error) {
+                toastr.error(error.message, 'Error');
+            })
         },
         rowClicked(data) {
             this.question.id = data.id;

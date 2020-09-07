@@ -2115,8 +2115,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteQuestion: function deleteQuestion() {
-      this.$emit('delete');
-      $('#myModal').modal('toggle');
+      var _this2 = this;
+
+      axios["delete"]("/api/question/".concat(this.question.id, "?api_token=").concat(this.api_token), this.question).then(function (response) {
+        _this2.$emit('delete');
+
+        toastr.success(response.data.message, 'Success');
+        $('#myModal').modal('toggle');
+      })["catch"](function (error) {
+        toastr.error(error.message, 'Error');
+      });
     },
     rowClicked: function rowClicked(data) {
       this.question.id = data.id;
