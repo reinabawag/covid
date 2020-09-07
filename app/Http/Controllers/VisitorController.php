@@ -37,6 +37,17 @@ class VisitorController extends Controller
      */
     public function store(Request $request)
     {
+        $visitor = new Visitor;
+        $visitor->name = $request->name;
+        $visitor->temp = $request->temp;
+        $visitor->gender = $request->gender;
+        $visitor->age = $request->age;
+        $visitor->address = $request->address;
+        $visitor->purpose = 
+        $visitor->company_name = $request->company_name;
+        $visitor->company_address = $request->company_address;
+        $visitor->save();
+
         return response()->json($request->all());
     }
 

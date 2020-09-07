@@ -21,8 +21,8 @@ class CreateVisitorsTable extends Migration
             $table->string('age');
             $table->string('address');
             $table->string('purpose');
-            $table->string('company_name');
-            $table->string('company_address');
+            $table->string('company_name')->nullable();
+            $table->string('company_address')->nullable();
             $table->timestamps();
         });
     }

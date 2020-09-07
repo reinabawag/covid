@@ -31,16 +31,16 @@
                 </div>
                 <div class="form-group">
                     <label for="purpose">Purpose</label>
-                    <select name="purpose" id="purpose" class="form-control" v-model="selected">
+                    <select name="purpose" id="purpose" class="form-control" v-model="info.purpose">
                         <option value="Official">Official</option>
                         <option value="Personal">Personal</option>
                     </select>
                 </div>
-                <div class="form-group" v-if="isOfficial">
+                <div class="form-group" v-if="info.purpose == 'Official'">
                     <label for="company_name">Company Name</label>
                     <input type="text" class="form-control" id="company_name" v-model="info.company_name" placeholder="Company Name">
                 </div>
-                <div class="form-group" v-if="isOfficial">
+                <div class="form-group" v-if="info.purpose == 'Official'">
                     <label for="company_address">Company Address</label>
                     <input type="text" class="form-control" id="company_address" v-model="info.company_address" placeholder="Company Address">
                 </div>
@@ -78,7 +78,9 @@
         new Vue({
             el: '#app',
             data: {      
-                info: {},      
+                info: {
+                    purpose: 'Official',
+                },      
                 selected: 'Official',
                 isOfficial: true,
             },
@@ -94,14 +96,6 @@
                     })
                 }
             },
-            watch: {
-                selected() {
-                    if (this.selected == 'Official') 
-                        this.isOfficial = true
-                    else
-                        this.isOfficial = false
-                }
-            }
         });
     </script>
 @endsection
