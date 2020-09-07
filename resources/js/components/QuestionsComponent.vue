@@ -38,6 +38,13 @@
                                 <span v-for="q in errors.question" :key="q" v-text="q" />
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="question">Is additional</label>
+                            <select id="question" class="form-control" v-model="question.is_additional">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -70,6 +77,7 @@ export default {
                 id: 0,
                 title: '',
                 question: '',
+                is_additional: 0,
             },
             errors: {},
             message: '',
@@ -102,6 +110,7 @@ export default {
             this.question.id = data.id;
             this.question.title = data.title;
             this.question.question = data.question;
+            this.question.is_additional = data.is_additional;
             this.errors = {};
             $('#myModal').modal('toggle');
         }

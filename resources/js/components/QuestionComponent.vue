@@ -9,6 +9,13 @@
 			<label for="question">Question</label>
 			<input type="text" class="form-control" v-model="question.question" id="question" placeholder="Question">
 		</div>
+		<div class="form-group">
+			<label for="question">Is additional</label>
+			<select id="question" class="form-control" v-model="question.is_additional">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
 		<button class="btn btn-success btn-block" >Add</button>
 	  </form>
   </div>
@@ -32,6 +39,7 @@ export default {
 				id: 0,
 				title: '',
 				question: '',
+				is_additional: 0,
 			},
 		}
 	},
@@ -41,6 +49,7 @@ export default {
 				.then((response) => {
 					this.question.title = '';
 					this.question.question = '';
+					this.question.is_additional = 0;
 					this.$emit('add');
 				})
 				.catch(function(error) {

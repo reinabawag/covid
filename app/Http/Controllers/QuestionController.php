@@ -91,6 +91,7 @@ class QuestionController extends Controller
         $question = Question::find($request->id);
         $question->title = $request->title;
         $question->question = $request->question;
+        $question->is_additional = $request->is_additional;
         $question->save();
 
         return response()->json(['data' => ['message' => 'Question updated!']], 200);

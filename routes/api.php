@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/visitor', 'VisitorController@store');
+
 Route::middleware('auth:api')->group(function () {
     Route::post('/question', 'QuestionController@store');
     Route::get('/question', 'QuestionController@getQuestion');

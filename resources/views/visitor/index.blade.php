@@ -8,26 +8,26 @@
             <h5><strong>Health Checklist</strong></h5>
             <hr>
             <strong>Personal Information:</strong>
-            <form>
+            <form @submit.prevent="formSubmit">
                 <div class="form-group">
                     <label for="name" class="mt-2">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Last name, Firstname Middle name">
+                    <input type="text" class="form-control" id="name" v-model="info.name" placeholder="Last name, Firstname Middle name" required>
                 </div>
                 <div class="form-group">
                     <label for="temp">Temp</label>
-                    <input type="text" class="form-control" id="temp" placeholder="Temperature">
+                    <input type="text" class="form-control" id="temp" v-model="info.temp" placeholder="Temperature" required>
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <input type="text" class="form-control" id="gender" placeholder="Gender">
+                    <input type="text" class="form-control" id="gender" v-model="info.gender" placeholder="Gender" required>
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" class="form-control" id="age" placeholder="Age">
+                    <input type="text" class="form-control" id="age" v-model="info.age" placeholder="Age" required>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="Address">
+                    <input type="text" class="form-control" id="address" v-model="info.address" placeholder="Address" required>
                 </div>
                 <div class="form-group">
                     <label for="purpose">Purpose</label>
@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group" v-if="isOfficial">
                     <label for="company_name">Company Name</label>
-                    <input type="text" class="form-control" id="company_name" placeholder="Company Name">
+                    <input type="text" class="form-control" id="company_name" v-model="info.company_name" placeholder="Company Name">
                 </div>
                 <div class="form-group" v-if="isOfficial">
                     <label for="company_address">Company Address</label>
-                    <input type="text" class="form-control" id="company_address" placeholder="Company Address">
+                    <input type="text" class="form-control" id="company_address" v-model="info.company_address" placeholder="Company Address">
                 </div>
 
                 <hr>
@@ -57,13 +57,16 @@
                     @endif
                     <div class="form-group">
                         <label for="{{ $index }}">{{ $index + 1 }}. {{ $question->question }}</label>
-                        <select name="{{ $index }}" id="{{ $index }}" class="form-control">
+                        <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans_{{ $question->id }}" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                        @if ($question->is_additional)
+                            <input v-if="info.ans_{{ $question->id }} == 'Yes'" v-model="info.ans_{{ $question->id }}_is_additional" type="text" class="form-control mt-2 mb-2" placeholder="If yes provide your answer here" required>
+                        @endif
                     </div>
                 @endforeach
-                <button class="btn btn-success btn-block">Submit</button>
+                <button class="btn btn-success btn-block" type="submit">Submit</button>
             </form>
         </div>
     </div>
@@ -74,14 +77,22 @@
     <script>
         new Vue({
             el: '#app',
-            data() {
-                return {
-                    selected: 'Official',
-                    isOfficial: true,
-                }
+            data: {      
+                info: {},      
+                selected: 'Official',
+                isOfficial: true,
             },
             methods: {
-                
+                formSubmit() {
+                    axios
+                    .post(`/api/visitor`, this.info)
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch(function(error) {
+                        console.log(error.message);
+                    })
+                }
             },
             watch: {
                 selected() {

@@ -1957,6 +1957,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     api_token: {
@@ -1973,7 +1980,8 @@ __webpack_require__.r(__webpack_exports__);
       question: {
         id: 0,
         title: '',
-        question: ''
+        question: '',
+        is_additional: 0
       }
     };
   },
@@ -1984,6 +1992,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/question?api_token=".concat(this.api_token), this.question).then(function (response) {
         _this.question.title = '';
         _this.question.question = '';
+        _this.question.is_additional = 0;
 
         _this.$emit('add');
       })["catch"](function (error) {
@@ -2058,6 +2067,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     api_token: {
@@ -2074,7 +2090,8 @@ __webpack_require__.r(__webpack_exports__);
       question: {
         id: 0,
         title: '',
-        question: ''
+        question: '',
+        is_additional: 0
       },
       errors: {},
       message: ''
@@ -2105,6 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
       this.question.id = data.id;
       this.question.title = data.title;
       this.question.question = data.question;
+      this.question.is_additional = data.is_additional;
       this.errors = {};
       $('#myModal').modal('toggle');
     }
@@ -44519,6 +44537,50 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "question" } }, [
+            _vm._v("Is additional")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.question.is_additional,
+                  expression: "question.is_additional"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "question" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.question,
+                    "is_additional",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c("button", { staticClass: "btn btn-success btn-block" }, [
           _vm._v("Add")
         ])
@@ -44660,6 +44722,52 @@ var render = function() {
                         0
                       )
                     : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "question" } }, [
+                    _vm._v("Is additional")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.question.is_additional,
+                          expression: "question.is_additional"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "question" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.question,
+                            "is_additional",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "0" } }, [_vm._v("No")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")])
+                    ]
+                  )
                 ])
               ])
             ]),
