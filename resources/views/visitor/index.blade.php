@@ -62,8 +62,8 @@
                             <option value="No">No</option>
                         </select>
                     </div>
-                   
                 @endforeach
+                <button class="btn btn-success btn-block">Submit</button>
             </form>
         </div>
     </div>

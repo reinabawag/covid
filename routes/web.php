@@ -12,14 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('visitor');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/visitor', 'VisitorController@index')->name('home');
+Route::get('/visitor', 'VisitorController@index')->name('visitor');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('question', 'QuestionController@index')->name('question.index');

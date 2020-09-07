@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <style>
             html, body {
                 background-color: #fff;
@@ -82,6 +83,8 @@
             <div class="content">
                 <div class="title m-b-md">
                     HR Covid Tracker
+                    <hr>
+                    <button class="btn btn-success btn-xl">Fill-up Health Declaration Form</button>
                 </div>
             </div>
         </div>
