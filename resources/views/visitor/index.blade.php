@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h3><strong>All visitors shall accomplish the visitors checklist</strong></h3>
+            <h3><strong>Visitors shall accomplish the checklist</strong></h3>
             <h5><strong>Health Checklist</strong></h5>
             <hr>
             <strong>Personal Information:</strong>
