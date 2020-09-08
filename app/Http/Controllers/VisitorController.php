@@ -50,17 +50,8 @@ class VisitorController extends Controller
         $visitor->company_address = $request->company_address;
         $visitor->save();
 
-        $answers = collect($request->ans)->map(function($item, $key) {
-            return $item;
-        })->reject(function ($item) {
-            return empty($item);
-        });
-
-        $additional = collect($request->additional)->map(function($item, $key) {
-            return $item;
-        })->reject(function ($item) {
-            return empty($item);
-        });
+        $answers = $this->makeCollection($request->ans);
+        $additional = $this->makeCollection($request->additional);
 
         foreach ($answers as $key => $answer) {
             $answer = new Answer(['answer' => isset($additional[$key]) ? $additional[$key] : $answer]);
@@ -69,6 +60,15 @@ class VisitorController extends Controller
         }
 
         return response()->json(['answers' => $answers, 'additional' => $additional]);
+    }
+
+    public function makeCollection($data)
+    {
+        return collect($data)->map(function($item, $key) {
+            return $item;
+        })->reject(function ($item) {
+            return empty($item);
+        });
     }
 
     /**
