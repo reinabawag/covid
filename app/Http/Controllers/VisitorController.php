@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Visitor;
 use Illuminate\Http\Request;
 use App\Question;
+use App\Answer;
+use Illuminate\Support\Collection;
 
 class VisitorController extends Controller
 {
@@ -43,12 +45,30 @@ class VisitorController extends Controller
         $visitor->gender = $request->gender;
         $visitor->age = $request->age;
         $visitor->address = $request->address;
-        $visitor->purpose = 
+        $visitor->purpose = $request->purpose;
         $visitor->company_name = $request->company_name;
         $visitor->company_address = $request->company_address;
         $visitor->save();
 
-        return response()->json($request->all());
+        $answers = collect($request->ans)->map(function($item, $key) {
+            return $item;
+        })->reject(function ($item) {
+            return empty($item);
+        });
+
+        $additional = collect($request->additional)->map(function($item, $key) {
+            return $item;
+        })->reject(function ($item) {
+            return empty($item);
+        });
+
+        foreach ($answers as $key => $answer) {
+            $answer = new Answer(['answer' => isset($additional[$key]) ? $additional[$key] : $answer]);
+            $answer->question()->associate($key);
+            $visitor->answers()->save($answer);
+        }
+
+        return response()->json(['answers' => $answers, 'additional' => $additional]);
     }
 
     /**

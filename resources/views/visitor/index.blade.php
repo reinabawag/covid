@@ -57,12 +57,12 @@
                     @endif
                     <div class="form-group">
                         <label for="{{ $index }}">{{ $index + 1 }}. {{ $question->question }}</label>
-                        <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans_{{ $question->id }}" class="form-control" required>
+                        <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans[{{ $question->id }}]" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
                         </select>
                         @if ($question->is_additional)
-                            <input v-if="info.ans_{{ $question->id }} == 'Yes'" v-model="info.ans_{{ $question->id }}_is_additional" type="text" class="form-control mt-2 mb-2" placeholder="If yes, provide your answer here" required>
+                            <input v-if="info.ans[{{ $question->id }}] == 'Yes'" v-model="info.additional[{{ $question->id }}]" type="text" class="form-control mt-2 mb-2" placeholder="If yes, provide your answer here" required>
                         @endif
                     </div>
                 @endforeach
@@ -79,6 +79,8 @@
             el: '#app',
             data: {      
                 info: {
+                    ans: [0],
+                    additional: [0],
                     purpose: 'Official',
                 },      
                 selected: 'Official',
@@ -89,6 +91,8 @@
                     axios
                     .post(`/api/visitor`, this.info)
                     .then((response) => {
+                        this.info.ans = [],
+                        this.info.additional = [];
                         console.log(response.data);
                     })
                     .catch(function(error) {
