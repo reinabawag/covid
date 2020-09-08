@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Question;
 use App\Answer;
 use Illuminate\Support\Collection;
+use App\Events\NewVisitor;
+use App\Http\Resources\VisitorCollection;
 
 class VisitorController extends Controller
 {
@@ -26,9 +28,9 @@ class VisitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getVisitors()
     {
-        //
+        return new VisitorCollection(Visitor::all());
     }
 
     /**
@@ -58,6 +60,8 @@ class VisitorController extends Controller
             $answer->question()->associate($key);
             $visitor->answers()->save($answer);
         }
+
+        event(new NewVisitor($visitor));
 
         return response()->json(['answers' => $answers, 'additional' => $additional]);
     }

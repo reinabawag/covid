@@ -13,12 +13,20 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    
+                    <home-component api_token="{{ Auth::user()->api_token }}" />
                     
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#app',
+        });
+    </script>
 @endsection
