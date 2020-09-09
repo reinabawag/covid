@@ -91,12 +91,13 @@
                     axios
                     .post(`/api/visitor`, this.info)
                     .then((response) => {
+                        this.info = {};
                         this.info.ans = [],
                         this.info.additional = [];
-                        console.log(response.data);
+                        toastr.success(response.data.message, 'Checklist submitted!')
                     })
                     .catch(function(error) {
-                        console.log(error.message);
+                        toastr.error(error.message, 'Error');
                     })
                 }
             },

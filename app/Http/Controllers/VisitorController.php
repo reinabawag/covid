@@ -63,7 +63,7 @@ class VisitorController extends Controller
 
         event(new NewVisitor($visitor));
 
-        return response()->json(['answers' => $answers, 'additional' => $additional]);
+        return response()->json(['message' => 'Kindly wait for confirmation.']);
     }
 
     public function makeCollection($data)
