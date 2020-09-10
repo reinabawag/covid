@@ -26,4 +26,5 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/question/{question}', 'QuestionController@destroy');
 
     Route::get('/visitors/get', 'VisitorController@getVisitors');
+    Route::get('/visitors/checklist/{visitor}', 'VisitorController@show');
 });

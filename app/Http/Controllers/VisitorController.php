@@ -9,6 +9,7 @@ use App\Answer;
 use Illuminate\Support\Collection;
 use App\Events\NewVisitor;
 use App\Http\Resources\VisitorCollection;
+use App\Http\Resources\Visitor as VisitorResource;
 
 class VisitorController extends Controller
 {
@@ -83,7 +84,7 @@ class VisitorController extends Controller
      */
     public function show(Visitor $visitor)
     {
-        //
+        return new VisitorResource($visitor->loadMissing(['answers.question']));
     }
 
     /**

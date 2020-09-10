@@ -1962,12 +1962,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['api_token'],
   data: function data() {
     return {
-      visitor: {},
-      visitors: []
+      visitor: {
+        id: 0,
+        name: '',
+        temp: '',
+        gender: '',
+        age: '',
+        address: '',
+        purpose: '',
+        company_name: '',
+        company_address: ''
+      },
+      visitors: [],
+      checkList: [],
+      isLoading: true
     };
   },
   created: function created() {
@@ -1986,7 +2043,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     rowClicked: function rowClicked(data) {
-      console.log('Row Data', JSON.stringify(data));
+      var _this2 = this;
+
+      this.isLoading = true;
+      $('#visitorModal').modal('show');
+      this.visitor.id = data.id;
+      this.visitor.name = data.name;
+      this.visitor.temp = data.temp;
+      this.visitor.gender = data.gender;
+      this.visitor.age = data.age;
+      this.visitor.address = data.address;
+      this.visitor.purpose = data.purpose;
+      this.visitor.company_name = data.company_name;
+      this.visitor.company_address = data.company_address;
+      axios.get("/api/visitors/checklist/".concat(data.id, "?api_token=").concat(this.api_token)).then(function (response) {
+        _this2.isLoading = false;
+        _this2.checkList = response.data.data;
+        console.log(response.data);
+      })["catch"](function (error) {
+        toastr.error(error.message, 'Error');
+      });
     }
   }
 });
@@ -44619,7 +44695,93 @@ var render = function() {
         }),
         0
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "visitorModal",
+          tabindex: "-1",
+          "aria-labelledby": "visitorModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _vm.isLoading
+                ? _c("div", { staticClass: "text-center" }, [_vm._m(2)])
+                : _c("div", [
+                    _c("h3", [_vm._v(_vm._s(_vm.visitor.name))]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [_vm._v("Temp")]),
+                      _vm._v(" " + _vm._s(_vm.visitor.temp))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [_vm._v("Gender")]),
+                      _vm._v(" " + _vm._s(_vm.visitor.gender))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [_vm._v("Age")]),
+                      _vm._v(" " + _vm._s(_vm.visitor.age))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [_vm._v("Address")]),
+                      _vm._v(" " + _vm._s(_vm.visitor.address))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [_vm._v("Purpose")]),
+                      _vm._v(" " + _vm._s(_vm.visitor.purpose))
+                    ]),
+                    _vm._v(" "),
+                    _vm.visitor.purpose == "Official"
+                      ? _c("p", [
+                          _c("strong", [_vm._v("Company Name")]),
+                          _vm._v(" " + _vm._s(_vm.visitor.company_name))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.visitor.purpose == "Official"
+                      ? _c("p", [
+                          _c("strong", [_vm._v("Company Address")]),
+                          _vm._v(" " + _vm._s(_vm.visitor.company_address))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("h3", [_vm._v("Checklist")]),
+                    _vm._v(" "),
+                    _c(
+                      "ol",
+                      _vm._l(_vm.checkList.answers, function(answer, index) {
+                        return _c("li", { key: index }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(answer.question.question)
+                          ),
+                          _c("br"),
+                          _c("strong", [_vm._v(_vm._s(answer.answer))])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+            ]),
+            _vm._v(" "),
+            _vm._m(3)
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -44635,6 +44797,68 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Purpose")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "visitorModalLabel" } },
+        [_vm._v("Visitor Information")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "spinner-border text-info", attrs: { role: "status" } },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("CLOSE")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "button" } },
+        [_vm._v("APPROVE")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
+        [_vm._v("DECLINE")]
+      )
     ])
   }
 ]
