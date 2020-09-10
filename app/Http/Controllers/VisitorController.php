@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use App\Events\NewVisitor;
 use App\Http\Resources\VisitorCollection;
 use App\Http\Resources\Visitor as VisitorResource;
+use App\Events\ForApproval;
 
 class VisitorController extends Controller
 {
@@ -64,7 +65,7 @@ class VisitorController extends Controller
 
         event(new NewVisitor($visitor));
 
-        return response()->json(['message' => 'Kindly wait for confirmation.']);
+        return response()->json(['message' => 'Kindly wait for confirmation.', 'visitor' => $visitor]);
     }
 
     public function makeCollection($data)
@@ -119,5 +120,11 @@ class VisitorController extends Controller
     public function destroy(Visitor $visitor)
     {
         //
+    }
+
+    public function approval(Visitor $visitor, Request $request)
+    {
+        if (event(new ForApproval($visitor, $request->approve)))
+            return response()->json(true);
     }
 }

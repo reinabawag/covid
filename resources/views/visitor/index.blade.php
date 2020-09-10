@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div v-if="!waitingForApproval" class="col-md-12">
             <h3><strong>Visitors shall accomplish the checklist</strong></h3>
             <h5><strong>Health Checklist</strong></h5>
             <hr>
@@ -69,6 +69,16 @@
                 <button class="btn btn-success btn-block" type="submit">Submit</button>
             </form>
         </div>
+        <div v-else class="col-md-12">
+            <div class="text-center">
+                <div v-if="loader" class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <br>
+                <br>
+                <h4>@{{ message }}</h4>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -85,6 +95,9 @@
                 },      
                 selected: 'Official',
                 isOfficial: true,
+                waitingForApproval: false,
+                message: 'Waiting for approval',
+                loader: true,
             },
             methods: {
                 formSubmit() {
@@ -94,7 +107,24 @@
                         this.info = {};
                         this.info.ans = [],
                         this.info.additional = [];
-                        toastr.success(response.data.message, 'Checklist submitted!')
+                        toastr.success(response.data.message, 'Checklist submitted!');
+                        console.log('Response from  submit', response.data);
+                        this.waitingForApproval = true;
+                        
+                        Echo
+                        .channel(`visitor.${response.data.visitor.id}`)
+                        .listen('ForApproval', (payload) => {
+                            this.loader = false;
+                            if (payload.status) {
+                                toastr.success('Approved');
+                                this.message = 'Visit approved';
+                            } else {
+                                toastr.warning('Rejected');
+                                this.message = 'Visit rejected!';
+                            }
+                            console.log('For approval payload', payload);
+                        });
+
                     })
                     .catch(function(error) {
                         toastr.error(error.message, 'Error');

@@ -27,4 +27,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/visitors/get', 'VisitorController@getVisitors');
     Route::get('/visitors/checklist/{visitor}', 'VisitorController@show');
+    Route::post('/visitor/approval/{visitor}', 'VisitorController@approval');
 });

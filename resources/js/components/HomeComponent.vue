@@ -54,8 +54,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-                <button type="button" class="btn btn-success">APPROVE</button>
-                <button type="button" class="btn btn-danger">DECLINE</button>
+                <button type="button" class="btn btn-success" @click="approve(true)">APPROVE</button>
+                <button type="button" class="btn btn-danger" @click="approve(false)">DECLINE</button>
             </div>
             </div>
         </div>
@@ -125,6 +125,19 @@
                 .catch(function(error) {
                     toastr.error(error.message, 'Error');
                 });   
+            },
+
+            approve(bool) {
+                console.log(bool);
+
+                axios
+                .post(`/api/visitor/approval/${this.visitor.id}?api_token=${this.api_token}`, {id: this.visitor.id, approve: bool})
+                .then((response) => {
+                    console.log('Approval response', response);
+                })
+                .catch(function(error) {
+                    console.log('Approval Error', error.message);
+                })
             }
         }
     }

@@ -2063,6 +2063,17 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         toastr.error(error.message, 'Error');
       });
+    },
+    approve: function approve(bool) {
+      console.log(bool);
+      axios.post("/api/visitor/approval/".concat(this.visitor.id, "?api_token=").concat(this.api_token), {
+        id: this.visitor.id,
+        approve: bool
+      }).then(function (response) {
+        console.log('Approval response', response);
+      })["catch"](function (error) {
+        console.log('Approval Error', error.message);
+      });
     }
   }
 });
@@ -44777,7 +44788,44 @@ var render = function() {
                   ])
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("CLOSE")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.approve(true)
+                    }
+                  }
+                },
+                [_vm._v("APPROVE")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.approve(false)
+                    }
+                  }
+                },
+                [_vm._v("DECLINE")]
+              )
+            ])
           ])
         ])
       ]
@@ -44833,33 +44881,6 @@ var staticRenderFns = [
       { staticClass: "spinner-border text-info", attrs: { role: "status" } },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("CLOSE")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success", attrs: { type: "button" } },
-        [_vm._v("APPROVE")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-danger", attrs: { type: "button" } },
-        [_vm._v("DECLINE")]
-      )
-    ])
   }
 ]
 render._withStripped = true
