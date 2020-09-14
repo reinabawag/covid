@@ -35,21 +35,19 @@
                 </div>
                 <div v-else>
                     <h3>{{ visitor.name }}</h3>
-                    <p><strong>Temp</strong> {{ visitor.temp }}</p>
-                    <p><strong>Gender</strong> {{ visitor.gender }}</p>
-                    <p><strong>Age</strong> {{ visitor.age }}</p>
-                    <p><strong>Address</strong> {{ visitor.address }}</p>
-                    <p><strong>Purpose</strong> {{ visitor.purpose }}</p>
-                    <p v-if="visitor.purpose == 'Official'"><strong>Company Name</strong> {{ visitor.company_name }}</p>
-                    <p v-if="visitor.purpose == 'Official'"><strong>Company Address</strong> {{ visitor.company_address }}</p>
+                    <span><strong>Temp</strong> {{ visitor.temp }}</span><br>
+                    <span><strong>Gender</strong> {{ visitor.gender }}</span><br>
+                    <span><strong>Age</strong> {{ visitor.age }}</span><br>
+                    <span><strong>Address</strong> {{ visitor.address }}</span><br>
+                    <span><strong>Purpose</strong> {{ visitor.purpose }}</span><br>
+                    <span v-if="visitor.purpose == 'Official'"><strong>Company Name</strong> {{ visitor.company_name }}<br></span>
+                    <span v-if="visitor.purpose == 'Official'"><strong>Company Address</strong> {{ visitor.company_address }}<br></span>
+                    <hr>
+                    <strong><em>Checklist</em></strong><br>
 
-                    <h3>Checklist</h3>
-
-                    <ol>
-                        <li v-for="(answer, index) in checkList.answers" :key="index">
-                            {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong>
-                        </li>
-                    </ol>
+                    <span v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
+                        {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong><br>
+                    </span>
                 </div>
             </div>
             <div class="modal-footer">
@@ -85,20 +83,28 @@
                 isLoading: true,
             }
         },
-        created() {
-            Echo.channel('new-visitor')
-                .listen('NewVisitor', (payload) => {
-                    console.log('New Visitor', payload);
-                    this.visitors.push(payload.visitor);
-                });
+        mounted() {
 
-            axios.get(`/api/visitors/get?api_token=${this.api_token}`)
-                .then((response) => {
-                    this.visitors = response.data.data;
-                })
-                .catch(function(error) {
-                    console.log(error.message);
-                })
+            Echo
+            .channel('new-visitor')
+            .listen('NewVisitor', (payload) => {
+                console.log('New Visitor', payload);
+                this.visitors.push(payload.visitor);
+            });
+
+            axios
+            .get(`/api/visitors/get?api_token=${this.api_token}`)
+            .then((response) => {
+                this.visitors = response.data.data;
+            })
+            .catch(function(error) {
+                console.log(error.message);
+            });
+            
+            // $('table').DataTable();
+        },
+        created() {            
+            
         },
         methods: {
             rowClicked(data) {
