@@ -32,7 +32,7 @@ class VisitorController extends Controller
      */
     public function getVisitors()
     {
-        return new VisitorCollection(Visitor::all());
+        return new VisitorCollection(Visitor::whereDate('created_at', today())->latest()->get());
     }
 
     /**
@@ -124,6 +124,13 @@ class VisitorController extends Controller
 
     public function approval(Visitor $visitor, Request $request)
     {
+        if ($request->approve)
+            $visitor->approved_at = now();
+        else
+            $visitor->rejected_at = now();
+
+        $visitor->save();
+
         if (event(new ForApproval($visitor, $request->approve)))
             return response()->json(true);
     }

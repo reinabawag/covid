@@ -2005,6 +2005,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['api_token'],
   data: function data() {
@@ -2018,7 +2022,9 @@ __webpack_require__.r(__webpack_exports__);
         address: '',
         purpose: '',
         company_name: '',
-        company_address: ''
+        company_address: '',
+        approved_at: '',
+        rejected_at: ''
       },
       visitors: [],
       checkList: [],
@@ -2033,11 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.visitors.push(payload.visitor);
     });
-    axios.get("/api/visitors/get?api_token=".concat(this.api_token)).then(function (response) {
-      _this.visitors = response.data.data;
-    })["catch"](function (error) {
-      console.log(error.message);
-    }); // $('table').DataTable();
+    this.getVisitors();
   },
   created: function created() {},
   methods: {
@@ -2055,6 +2057,8 @@ __webpack_require__.r(__webpack_exports__);
       this.visitor.purpose = data.purpose;
       this.visitor.company_name = data.company_name;
       this.visitor.company_address = data.company_address;
+      this.approved_at = data.approved_at;
+      this.rejected_at = data.rejected_at;
       axios.get("/api/visitors/checklist/".concat(data.id, "?api_token=").concat(this.api_token)).then(function (response) {
         _this2.isLoading = false;
         _this2.checkList = response.data.data;
@@ -2064,14 +2068,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     approve: function approve(bool) {
+      var _this3 = this;
+
       console.log(bool);
       axios.post("/api/visitor/approval/".concat(this.visitor.id, "?api_token=").concat(this.api_token), {
         id: this.visitor.id,
         approve: bool
       }).then(function (response) {
         console.log('Approval response', response);
+
+        _this3.getVisitors();
       })["catch"](function (error) {
         console.log('Approval Error', error.message);
+      });
+    },
+    getVisitors: function getVisitors() {
+      var _this4 = this;
+
+      axios.get("/api/visitors/get?api_token=".concat(this.api_token)).then(function (response) {
+        _this4.visitors = response.data.data;
+      })["catch"](function (error) {
+        console.log(error.message);
       });
     }
   }
@@ -60220,7 +60237,11 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(visitor.age))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(visitor.purpose))])
+              _c("td", [_vm._v(_vm._s(visitor.purpose))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(visitor.approved_at))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(visitor.rejected_at))])
             ]
           )
         }),
@@ -60378,7 +60399,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Age")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Purpose")])
+        _c("th", [_vm._v("Purpose")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Approved")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Rejected")])
       ])
     ])
   },
@@ -60486,7 +60511,7 @@ var render = function() {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "question" } }, [_vm._v("Question")]),
           _vm._v(" "),
-          _c("input", {
+          _c("textarea", {
             directives: [
               {
                 name: "model",
@@ -60496,7 +60521,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", id: "question", placeholder: "Question" },
+            attrs: { id: "question", cols: "30", rows: "10" },
             domProps: { value: _vm.question.question },
             on: {
               input: function($event) {
@@ -60654,7 +60679,7 @@ var render = function() {
                     _vm._v("Question")
                   ]),
                   _vm._v(" "),
-                  _c("input", {
+                  _c("textarea", {
                     directives: [
                       {
                         name: "model",
@@ -60666,9 +60691,10 @@ var render = function() {
                     staticClass: "form-control",
                     class: { "is-invalid": _vm.errors.question },
                     attrs: {
-                      type: "text",
                       id: "question",
-                      placeholder: "Question"
+                      placeholder: "Question",
+                      cols: "30",
+                      rows: "10"
                     },
                     domProps: { value: _vm.question.question },
                     on: {
@@ -73450,8 +73476,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laravel projects\covid\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laravel projects\covid\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\covid\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\covid\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

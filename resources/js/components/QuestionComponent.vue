@@ -7,7 +7,7 @@
 		</div>
 		<div class="form-group">
 			<label for="question">Question</label>
-			<input type="text" class="form-control" v-model="question.question" id="question" placeholder="Question">
+			<textarea id="question" class="form-control" cols="30" rows="10" v-model="question.question"></textarea>
 		</div>
 		<div class="form-group">
 			<label for="question">Is additional</label>

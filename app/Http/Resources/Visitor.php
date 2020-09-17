@@ -24,6 +24,8 @@ class Visitor extends JsonResource
             'purpose' => $this->purpose,
             'company_name' => $this->company_name,
             'company_address' => $this->company_address,
+            'approved_at' => $this->approved_at,
+            'rejected_at' => $this->rejected_at,
             'answers' => Answer::collection($this->whenLoaded('answers')),
         ];
     }
