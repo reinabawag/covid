@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="temp">Temp</label>
-                    <input type="text" class="form-control" id="temp" v-model="info.temp" placeholder="Temperature" required>
+                    <input type="number" class="form-control" id="temp" step="0.01" v-model="info.temp" placeholder="Temperature" required>
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" class="form-control" id="age" v-model="info.age" placeholder="Age" required>
+                    <input type="number" class="form-control" id="age" v-model="info.age" placeholder="Age" required>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
