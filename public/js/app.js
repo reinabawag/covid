@@ -60323,19 +60323,22 @@ var render = function() {
                       _vm._v(" "),
                       _vm._m(3),
                       _c("br"),
+                      _c("br"),
                       _vm._v(" "),
                       _vm._l(_vm.checkList.answers, function(answer, index) {
                         return _c(
-                          "span",
+                          "p",
                           { key: index, staticClass: "text-justify" },
                           [
                             _vm._v(
                               "\n                    " +
+                                _vm._s(index + 1) +
+                                ". " +
                                 _vm._s(answer.question.question)
                             ),
                             _c("br"),
-                            _c("strong", [_vm._v(_vm._s(answer.answer))]),
-                            _c("br")
+                            _vm._v("    "),
+                            _c("strong", [_vm._v(_vm._s(answer.answer))])
                           ]
                         )
                       })

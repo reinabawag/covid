@@ -47,11 +47,11 @@
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Name</strong> {{ visitor.company_name }}<br></span>
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Address</strong> {{ visitor.company_address }}<br></span>
                     <hr>
-                    <strong><em>Checklist</em></strong><br>
+                    <strong><em>Checklist</em></strong><br><br>
 
-                    <span v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
-                        {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong><br>
-                    </span>
+                    <p v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
+                        {{ index+1 }}. {{ answer.question.question }}<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ answer.answer }}</strong>
+                    </p>
                 </div>
             </div>
             <div class="modal-footer">
