@@ -2005,6 +2005,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['api_token'],
   data: function data() {
@@ -2022,7 +2049,10 @@ __webpack_require__.r(__webpack_exports__);
       },
       visitors: [],
       checkList: [],
-      isLoading: true
+      isLoading: true,
+      searchQuery: '',
+      links: {},
+      meta: {}
     };
   },
   mounted: function mounted() {
@@ -2035,9 +2065,11 @@ __webpack_require__.r(__webpack_exports__);
     });
     axios.get("/api/visitors/get?api_token=".concat(this.api_token)).then(function (response) {
       _this.visitors = response.data.data;
+      _this.meta = response.data.meta;
+      _this.links = response.data.links;
     })["catch"](function (error) {
       console.log(error.message);
-    }); // $('table').DataTable();
+    });
   },
   created: function created() {},
   methods: {
@@ -2073,6 +2105,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log('Approval Error', error.message);
       });
+    },
+    btnSearch: function btnSearch() {
+      console.log(this.searchQuery);
     }
   }
 });
@@ -60199,7 +60234,50 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("table", { staticClass: "table table-bordered table-hover" }, [
+    _c("form", { staticClass: "form-inline", attrs: { action: "" } }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Search")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.searchQuery,
+              expression: "searchQuery"
+            }
+          ],
+          staticClass: "form-control mx-sm-3",
+          attrs: { type: "text" },
+          domProps: { value: _vm.searchQuery },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchQuery = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                $event.preventDefault()
+                return _vm.btnSearch($event)
+              }
+            }
+          },
+          [_vm._v("Search")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered table-hover mt-2" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
@@ -60228,6 +60306,41 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _c("nav", { attrs: { "aria-label": "..." } }, [
+      _c("ul", { staticClass: "pagination" }, [
+        _c(
+          "li",
+          { staticClass: "page-item", class: { disabled: !_vm.links.prev } },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#", tabindex: "-1" }
+              },
+              [_vm._v("Previous")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "page-item", class: { disabled: !_vm.links.next } },
+          [
+            _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+              _vm._v("Next")
+            ])
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -60242,11 +60355,11 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(1),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _vm.isLoading
-                ? _c("div", { staticClass: "text-center" }, [_vm._m(2)])
+                ? _c("div", { staticClass: "text-center" }, [_vm._m(5)])
                 : _c(
                     "div",
                     [
@@ -60300,21 +60413,26 @@ var render = function() {
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
-                      _vm._m(3),
+                      _vm._m(6),
+                      _c("br"),
                       _c("br"),
                       _vm._v(" "),
                       _vm._l(_vm.checkList.answers, function(answer, index) {
                         return _c(
-                          "span",
-                          { key: index, staticClass: "text-justify" },
+                          "p",
+                          {
+                            key: index,
+                            staticStyle: { "text-align": "justify" }
+                          },
                           [
                             _vm._v(
                               "\n                    " +
+                                _vm._s(index + 1) +
+                                ". " +
                                 _vm._s(answer.question.question)
                             ),
                             _c("br"),
-                            _c("strong", [_vm._v(_vm._s(answer.answer))]),
-                            _c("br")
+                            _c("strong", [_vm._v(_vm._s(answer.answer))])
                           ]
                         )
                       })
@@ -60380,6 +60498,33 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Purpose")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [_vm._v("1")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item active" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+        _vm._v("2 "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("(current)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [_vm._v("3")])
     ])
   },
   function() {

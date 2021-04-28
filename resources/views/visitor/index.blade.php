@@ -56,7 +56,7 @@
                         <strong><em>{{ $question->title }}</em></strong><br>
                     @endif
                     <div class="form-group">
-                        <label for="{{ $index }}">{{ $index + 1 }}. {{ $question->question }}</label>
+                        <label for="{{ $index }}" style="text-align: justify">{{ $index + 1 }}. {{ $question->question }}</label>
                         <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans[{{ $question->id }}]" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>

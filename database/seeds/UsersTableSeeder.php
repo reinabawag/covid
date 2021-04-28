@@ -19,5 +19,13 @@ class UsersTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'api_token' => Str::random(80),
         ]);
+
+        User::create([
+            'name' => 'Cori Ong',
+            'email' => 'sr.ong_hrd@amwire.com.ph',
+            'password' => Hash::make('hradmin'),
+            'remember_token' => Str::random(10),
+            'api_token' => Str::random(80),
+        ]);
     }
 }

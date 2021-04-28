@@ -1,6 +1,13 @@
 <template>
     <div>
-        <table class="table table-bordered table-hover">
+        <form action="" class="form-inline">
+            <div class="form-group">
+                <label for="">Search</label>
+                <input type="text" class="form-control mx-sm-3" v-model="searchQuery">
+                <button class="btn btn-primary" v-on:click.stop.prevent="btnSearch">Search</button>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover mt-2">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -16,6 +23,26 @@
                 </tr>
             </tbody>
         </table>
+
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item" v-bind:class="{ disabled: ! links.prev }">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+    
+
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+
+                <li class="page-item" v-bind:class="{ disabled: ! links.next }">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
 
         <!-- Modal -->
         <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="visitorModalLabel" aria-hidden="true">
@@ -43,11 +70,11 @@
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Name</strong> {{ visitor.company_name }}<br></span>
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Address</strong> {{ visitor.company_address }}<br></span>
                     <hr>
-                    <strong><em>Checklist</em></strong><br>
+                    <strong><em>Checklist</em></strong><br><br>
 
-                    <span v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
-                        {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong><br>
-                    </span>
+                    <p v-for="(answer, index) in checkList.answers" :key="index" style="text-align: justify">
+                        {{index+1}}. {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong>
+                    </p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -81,6 +108,9 @@
                 visitors: [],
                 checkList: [],
                 isLoading: true,
+                searchQuery : '',
+                links: {},
+                meta: {},
             }
         },
         mounted() {
@@ -96,12 +126,12 @@
             .get(`/api/visitors/get?api_token=${this.api_token}`)
             .then((response) => {
                 this.visitors = response.data.data;
+                this.meta = response.data.meta;
+                this.links = response.data.links;
             })
             .catch(function(error) {
                 console.log(error.message);
             });
-            
-            // $('table').DataTable();
         },
         created() {            
             
@@ -144,6 +174,10 @@
                 .catch(function(error) {
                     console.log('Approval Error', error.message);
                 })
+            },
+
+            btnSearch() {
+                console.log(this.searchQuery);
             }
         }
     }

@@ -32,7 +32,8 @@ class VisitorController extends Controller
      */
     public function getVisitors()
     {
-        return new VisitorCollection(Visitor::all());
+        $visitors = Visitor::paginate(10);
+        return new VisitorCollection($visitors);
     }
 
     /**
