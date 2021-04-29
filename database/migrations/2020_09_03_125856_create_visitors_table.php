@@ -22,7 +22,7 @@ class CreateVisitorsTable extends Migration
             $table->string('address');
             $table->string('purpose');
             $table->string('company_name')->nullable();
-            $table->boolean('status');
+            $table->boolean('status')->default(FALSE);
             $table->string('company_address')->nullable();
             $table->timestamps();
         });
