@@ -1937,180 +1937,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HomeComponent.vue?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['api_token'],
-  data: function data() {
-    return {
-      visitor: {
-        id: 0,
-        name: '',
-        temp: '',
-        gender: '',
-        age: '',
-        address: '',
-        purpose: '',
-        company_name: '',
-        company_address: ''
-      },
-      visitors: [],
-      checkList: [],
-      isLoading: true,
-      searchQuery: '',
-      links: {},
-      meta: {}
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    Echo.channel('new-visitor').listen('NewVisitor', function (payload) {
-      console.log('New Visitor', payload);
-
-      _this.visitors.push(payload.visitor);
-    });
-    axios.get("/api/visitors/get?api_token=".concat(this.api_token)).then(function (response) {
-      _this.visitors = response.data.data;
-      _this.meta = response.data.meta;
-      _this.links = response.data.links;
-    })["catch"](function (error) {
-      console.log(error.message);
-    });
-  },
-  created: function created() {},
-  methods: {
-    rowClicked: function rowClicked(data) {
-      var _this2 = this;
-
-      this.isLoading = true;
-      $('#visitorModal').modal('show');
-      this.visitor.id = data.id;
-      this.visitor.name = data.name;
-      this.visitor.temp = data.temp;
-      this.visitor.gender = data.gender;
-      this.visitor.age = data.age;
-      this.visitor.address = data.address;
-      this.visitor.purpose = data.purpose;
-      this.visitor.company_name = data.company_name;
-      this.visitor.company_address = data.company_address;
-      axios.get("/api/visitors/checklist/".concat(data.id, "?api_token=").concat(this.api_token)).then(function (response) {
-        _this2.isLoading = false;
-        _this2.checkList = response.data.data;
-        console.log(response.data);
-      })["catch"](function (error) {
-        toastr.error(error.message, 'Error');
-      });
-    },
-    approve: function approve(bool) {
-      console.log(bool);
-      axios.post("/api/visitor/approval/".concat(this.visitor.id, "?api_token=").concat(this.api_token), {
-        id: this.visitor.id,
-        approve: bool
-      }).then(function (response) {
-        console.log('Approval response', response);
-      })["catch"](function (error) {
-        console.log('Approval Error', error.message);
-      });
-    },
-    btnSearch: function btnSearch() {
-      console.log(this.searchQuery);
-    }
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\laravel projects\\covid\\resources\\js\\components\\HomeComponent.vue: Unexpected token (136:0)\n\n\u001b[0m \u001b[90m 134 | \u001b[39m            })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 135 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 136 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 137 | \u001b[39m            axios\u001b[0m\n\u001b[0m \u001b[90m 138 | \u001b[39m            \u001b[33m.\u001b[39mget(\u001b[32m`/api/visitors/get?api_token=${this.api_token}`\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 139 | \u001b[39m            \u001b[33m.\u001b[39mthen((response) \u001b[33m=>\u001b[39m {\u001b[0m\n    at Parser._raise (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:766:17)\n    at Parser.raiseWithData (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:759:17)\n    at Parser.raise (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:753:17)\n    at Parser.unexpected (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:8966:16)\n    at Parser.parseExprAtom (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10282:20)\n    at Parser.parseExprSubscripts (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9844:23)\n    at Parser.parseUpdate (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9824:21)\n    at Parser.parseMaybeUnary (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9813:17)\n    at Parser.parseExprOps (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9683:23)\n    at Parser.parseMaybeConditional (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9657:23)\n    at Parser.parseMaybeAssign (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9620:21)\n    at Parser.parseExpressionBase (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9564:23)\n    at D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9558:39\n    at Parser.allowInAnd (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11297:16)\n    at Parser.parseExpression (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9558:17)\n    at Parser.parseStatementContent (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11562:23)\n    at Parser.parseStatement (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11431:17)\n    at Parser.parseBlockOrModuleBlockBody (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:12013:25)\n    at Parser.parseBlockBody (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11999:10)\n    at Parser.parseBlock (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11983:10)\n    at Parser.parseFunctionBody (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10963:24)\n    at Parser.parseFunctionBodyAndFinish (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10946:10)\n    at Parser.parseMethod (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10883:10)\n    at Parser.parseObjectMethod (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10808:19)\n    at Parser.parseObjPropValue (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10841:23)\n    at Parser.parsePropertyDefinition (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10772:10)\n    at Parser.parseObjectLike (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10664:25)\n    at Parser.parseExprAtom (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:10198:23)\n    at Parser.parseExprSubscripts (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9844:23)\n    at Parser.parseUpdate (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9824:21)\n    at Parser.parseMaybeUnary (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9813:17)\n    at Parser.parseExprOps (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9683:23)\n    at Parser.parseMaybeConditional (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9657:23)\n    at Parser.parseMaybeAssign (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9620:21)\n    at D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:9586:39\n    at Parser.allowInAnd (D:\\laravel projects\\covid\\node_modules\\@babel\\parser\\lib\\index.js:11297:16)");
 
 /***/ }),
 
@@ -60298,7 +60127,11 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(visitor.age))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(visitor.purpose))])
+              _c("td", [_vm._v(_vm._s(visitor.purpose))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(visitor.approved_at))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(visitor.rejected_at))])
             ]
           )
         }),
@@ -60416,7 +60249,7 @@ var render = function() {
                       _vm._m(6),
                       _c("br"),
                       _c("br"),
-                      _vm._v(" "),
+                      _vm._v("\n\n<<<<<<< HEAD\n                    "),
                       _vm._l(_vm.checkList.answers, function(answer, index) {
                         return _c(
                           "p",
@@ -60426,13 +60259,34 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    " +
+                              "\n                        " +
                                 _vm._s(index + 1) +
                                 ". " +
                                 _vm._s(answer.question.question)
                             ),
                             _c("br"),
-                            _c("strong", [_vm._v(_vm._s(answer.answer))])
+                            _c("strong", [_vm._v(_vm._s(answer.answer))]),
+                            _vm._v("\n=======\n                    ")
+                          ]
+                        )
+                      }),
+                      _vm._l(_vm.checkList.answers, function(answer, index) {
+                        return _c(
+                          "p",
+                          { key: index, staticClass: "text-justify" },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(index + 1) +
+                                ". " +
+                                _vm._s(answer.question.question)
+                            ),
+                            _c("br"),
+                            _vm._v("    "),
+                            _c("strong", [_vm._v(_vm._s(answer.answer))]),
+                            _vm._v(
+                              "\n>>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9\n                    "
+                            )
                           ]
                         )
                       })
@@ -60496,7 +60350,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Age")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Purpose")])
+        _c("th", [_vm._v("Purpose")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Approved")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Rejected")])
       ])
     ])
   },
@@ -60631,7 +60489,7 @@ var render = function() {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "question" } }, [_vm._v("Question")]),
           _vm._v(" "),
-          _c("input", {
+          _c("textarea", {
             directives: [
               {
                 name: "model",
@@ -60641,7 +60499,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", id: "question", placeholder: "Question" },
+            attrs: { id: "question", cols: "30", rows: "10" },
             domProps: { value: _vm.question.question },
             on: {
               input: function($event) {
@@ -60799,7 +60657,7 @@ var render = function() {
                     _vm._v("Question")
                   ]),
                   _vm._v(" "),
-                  _c("input", {
+                  _c("textarea", {
                     directives: [
                       {
                         name: "model",
@@ -60811,9 +60669,10 @@ var render = function() {
                     staticClass: "form-control",
                     class: { "is-invalid": _vm.errors.question },
                     attrs: {
-                      type: "text",
                       id: "question",
-                      placeholder: "Question"
+                      placeholder: "Question",
+                      cols: "30",
+                      rows: "10"
                     },
                     domProps: { value: _vm.question.question },
                     on: {

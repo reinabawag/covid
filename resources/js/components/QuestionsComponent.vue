@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <label for="question">Question</label>
-                            <input type="text" class="form-control" v-model="question.question" v-bind:class="{ 'is-invalid': errors.question }" id="question" placeholder="Question">
+                            <textarea class="form-control" v-model="question.question" v-bind:class="{ 'is-invalid': errors.question }" id="question" placeholder="Question" cols="30" rows="10"></textarea>
                             <div v-if="errors.question" class="invalid-feedback">
                                 <span v-for="q in errors.question" :key="q" v-text="q" />
                             </div>

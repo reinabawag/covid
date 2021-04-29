@@ -13,6 +13,8 @@
                     <th>Name</th>
                     <th>Age</th>
                     <th>Purpose</th>
+                    <th>Approved</th>
+                    <th>Rejected</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +22,8 @@
                     <td>{{ visitor.name }}</td>
                     <td>{{ visitor.age }}</td>
                     <td>{{ visitor.purpose }}</td>
+                    <td>{{ visitor.approved_at }}</td>
+                    <td>{{ visitor.rejected_at }}</td>
                 </tr>
             </tbody>
         </table>
@@ -72,8 +76,13 @@
                     <hr>
                     <strong><em>Checklist</em></strong><br><br>
 
+<<<<<<< HEAD
                     <p v-for="(answer, index) in checkList.answers" :key="index" style="text-align: justify">
                         {{index+1}}. {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong>
+=======
+                    <p v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
+                        {{ index+1 }}. {{ answer.question.question }}<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ answer.answer }}</strong>
+>>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
                     </p>
                 </div>
             </div>
@@ -104,6 +113,8 @@
                     purpose: '',
                     company_name: '',
                     company_address: '',
+                    approved_at: '',
+                    rejected_at: '',
                 },
                 visitors: [],
                 checkList: [],
@@ -122,6 +133,7 @@
                 this.visitors.push(payload.visitor);
             });
 
+<<<<<<< HEAD
             axios
             .get(`/api/visitors/get?api_token=${this.api_token}`)
             .then((response) => {
@@ -132,6 +144,9 @@
             .catch(function(error) {
                 console.log(error.message);
             });
+=======
+            this.getVisitors();
+>>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
         },
         created() {            
             
@@ -150,6 +165,8 @@
                 this.visitor.purpose = data.purpose;
                 this.visitor.company_name = data.company_name;
                 this.visitor.company_address = data.company_address;
+                this.approved_at = data.approved_at;
+                this.rejected_at = data.rejected_at;
 
                 axios
                 .get(`/api/visitors/checklist/${data.id}?api_token=${this.api_token}`)
@@ -170,14 +187,27 @@
                 .post(`/api/visitor/approval/${this.visitor.id}?api_token=${this.api_token}`, {id: this.visitor.id, approve: bool})
                 .then((response) => {
                     console.log('Approval response', response);
+                    this.getVisitors();
                 })
                 .catch(function(error) {
                     console.log('Approval Error', error.message);
                 })
             },
 
+<<<<<<< HEAD
             btnSearch() {
                 console.log(this.searchQuery);
+=======
+            getVisitors() {
+                axios
+                .get(`/api/visitors/get?api_token=${this.api_token}`)
+                .then((response) => {
+                    this.visitors = response.data.data;
+                })
+                .catch(function(error) {
+                    console.log(error.message);
+                });
+>>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
             }
         }
     }
