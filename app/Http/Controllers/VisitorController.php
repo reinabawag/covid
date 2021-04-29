@@ -32,12 +32,9 @@ class VisitorController extends Controller
      */
     public function getVisitors()
     {
-<<<<<<< HEAD
         $visitors = Visitor::paginate(10);
         return new VisitorCollection($visitors);
-=======
-        return new VisitorCollection(Visitor::whereDate('created_at', today())->latest()->get());
->>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
+        // return new VisitorCollection(Visitor::whereDate('created_at', today())->latest()->get());
     }
 
     /**

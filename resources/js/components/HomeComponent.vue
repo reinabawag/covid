@@ -76,13 +76,8 @@
                     <hr>
                     <strong><em>Checklist</em></strong><br><br>
 
-<<<<<<< HEAD
-                    <p v-for="(answer, index) in checkList.answers" :key="index" style="text-align: justify">
-                        {{index+1}}. {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong>
-=======
                     <p v-for="(answer, index) in checkList.answers" :key="index" class="text-justify">
-                        {{ index+1 }}. {{ answer.question.question }}<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ answer.answer }}</strong>
->>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
+                        <strong>{{ index+1 }}.</strong> {{ answer.question.question }}<br><strong>{{ answer.answer }}</strong>
                     </p>
                 </div>
             </div>
@@ -133,7 +128,6 @@
                 this.visitors.push(payload.visitor);
             });
 
-<<<<<<< HEAD
             axios
             .get(`/api/visitors/get?api_token=${this.api_token}`)
             .then((response) => {
@@ -144,9 +138,7 @@
             .catch(function(error) {
                 console.log(error.message);
             });
-=======
             this.getVisitors();
->>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
         },
         created() {            
             
@@ -194,10 +186,9 @@
                 })
             },
 
-<<<<<<< HEAD
             btnSearch() {
                 console.log(this.searchQuery);
-=======
+            },
             getVisitors() {
                 axios
                 .get(`/api/visitors/get?api_token=${this.api_token}`)
@@ -207,7 +198,6 @@
                 .catch(function(error) {
                     console.log(error.message);
                 });
->>>>>>> aea711f8c639c54a11a008bafe6298bca99f82e9
             }
         }
     }
