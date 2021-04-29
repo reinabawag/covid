@@ -26,6 +26,7 @@
     "dependencies": {
         "datatables.net-bs4": "^1.10.21",
         "laravel-echo": "^1.8.1",
+        "laravel-vue-pagination": "^2.3.1",
         "pusher-js": "^7.0.0"
     }
 }

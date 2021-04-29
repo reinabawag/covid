@@ -13,6 +13,5 @@ $factory->define(Visitor::class, function (Faker $faker) {
         'age' => '25',
         'address' => $faker->address,
         'purpose' => 'Personal',
-        'status' => FALSE,
     ];
 });

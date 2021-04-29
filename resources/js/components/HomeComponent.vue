@@ -13,22 +13,22 @@
                     <th>Name</th>
                     <th>Age</th>
                     <th>Purpose</th>
-                    <th>Approved</th>
-                    <th>Rejected</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(visitor, index) in visitors" :key="index" v-on:click="rowClicked(visitor)">
+                <tr v-for="(visitor, index) in visitors.data" :key="index" v-on:click="rowClicked(visitor)">
                     <td>{{ visitor.name }}</td>
                     <td>{{ visitor.age }}</td>
                     <td>{{ visitor.purpose }}</td>
-                    <td>{{ visitor.approved_at }}</td>
-                    <td>{{ visitor.rejected_at }}</td>
+                    <td>{{ visitor.status }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <nav aria-label="...">
+        <pagination :data="visitors" @pagination-change-page="getVisitors"></pagination>
+
+        <!-- <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item" v-bind:class="{ disabled: ! links.prev }">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -46,11 +46,11 @@
                     <a class="page-link" href="#">Next</a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
 
         <!-- Modal -->
         <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="visitorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="visitorModalLabel">Visitor Information</h5>
@@ -111,12 +111,10 @@
                     approved_at: '',
                     rejected_at: '',
                 },
-                visitors: [],
+                visitors: {},
                 checkList: [],
                 isLoading: true,
                 searchQuery : '',
-                links: {},
-                meta: {},
             }
         },
         mounted() {
@@ -125,19 +123,21 @@
             .channel('new-visitor')
             .listen('NewVisitor', (payload) => {
                 console.log('New Visitor', payload);
-                this.visitors.push(payload.visitor);
+                // this.visitors.push(payload.visitor);
+                this.getVisitors();
             });
 
-            axios
-            .get(`/api/visitors/get?api_token=${this.api_token}`)
-            .then((response) => {
-                this.visitors = response.data.data;
-                this.meta = response.data.meta;
-                this.links = response.data.links;
-            })
-            .catch(function(error) {
-                console.log(error.message);
-            });
+            // axios
+            // .get(`/api/visitors/get?api_token=${this.api_token}`)
+            // .then((response) => {
+            //     this.visitors = response.data.data;
+            //     this.meta = response.data.meta;
+            //     this.links = response.data.links;
+            // })
+            // .catch(function(error) {
+            //     console.log(error.message);
+            // });
+
             this.getVisitors();
         },
         created() {            
@@ -187,17 +187,25 @@
             },
 
             btnSearch() {
-                console.log(this.searchQuery);
+                this.getVisitors()
             },
-            getVisitors() {
+
+            getVisitors(page = 1) {
+                console.log('i was refreshed');
                 axios
-                .get(`/api/visitors/get?api_token=${this.api_token}`)
+                .get(`/api/visitors/get?api_token=${this.api_token}&page=${page}&query=`+encodeURI(this.searchQuery))
                 .then((response) => {
-                    this.visitors = response.data.data;
+                    this.visitors = response.data;
                 })
                 .catch(function(error) {
                     console.log(error.message);
                 });
+            }
+        },
+
+        computed: {
+            isApproved: function () {
+                return this.visitors.isApproved
             }
         }
     }

@@ -30,9 +30,10 @@ class VisitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getVisitors()
+    public function getVisitors(Request $request)
     {
-        $visitors = Visitor::paginate(10);
+        $query = $request->input('query');
+        $visitors = Visitor::where('name', 'like', "%$query%")->orderBy('created_at', 'desc')->paginate(10);
         return new VisitorCollection($visitors);
         // return new VisitorCollection(Visitor::whereDate('created_at', today())->latest()->get());
     }
@@ -126,11 +127,7 @@ class VisitorController extends Controller
 
     public function approval(Visitor $visitor, Request $request)
     {
-        if ($request->approve)
-            $visitor->approved_at = now();
-        else
-            $visitor->rejected_at = now();
-
+        $visitor->status = $request->approve;
         $visitor->save();
 
         if (event(new ForApproval($visitor, $request->approve)))

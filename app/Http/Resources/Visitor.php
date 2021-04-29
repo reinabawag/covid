@@ -14,6 +14,11 @@ class Visitor extends JsonResource
      */
     public function toArray($request)
     {
+        $temp = '';
+        if ( ! is_null($this->status)) {
+            $temp = $this->status ? 'Approved' : 'Rejected';
+        }   
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,8 +29,7 @@ class Visitor extends JsonResource
             'purpose' => $this->purpose,
             'company_name' => $this->company_name,
             'company_address' => $this->company_address,
-            'approved_at' => $this->approved_at,
-            'rejected_at' => $this->rejected_at,
+            'status' => $temp,
             'answers' => Answer::collection($this->whenLoaded('answers')),
         ];
     }
