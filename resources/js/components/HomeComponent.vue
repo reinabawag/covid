@@ -28,26 +28,6 @@
 
         <pagination :data="visitors" @pagination-change-page="getVisitors"></pagination>
 
-        <!-- <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item" v-bind:class="{ disabled: ! links.prev }">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-    
-
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-
-                <li class="page-item" v-bind:class="{ disabled: ! links.next }">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav> -->
-
         <!-- Modal -->
         <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="visitorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -66,11 +46,12 @@
                 </div>
                 <div v-else>
                     <h3>{{ visitor.name }}</h3>
-                    <span><strong>Temp</strong> {{ visitor.temp }}</span><br>
-                    <span><strong>Gender</strong> {{ visitor.gender }}</span><br>
-                    <span><strong>Age</strong> {{ visitor.age }}</span><br>
-                    <span><strong>Address</strong> {{ visitor.address }}</span><br>
-                    <span><strong>Purpose</strong> {{ visitor.purpose }}</span><br>
+                    <span><strong>temp</strong> {{ visitor.temp }}</span><br>
+                    <span><strong>gender</strong> {{ visitor.gender }}</span><br>
+                    <span><strong>age</strong> {{ visitor.age }}</span><br>
+                    <span><strong>phone</strong> {{ visitor.phone }}</span><br>
+                    <span><strong>address</strong> {{ visitor.address }}</span><br>
+                    <span><strong>purpose</strong> {{ visitor.purpose }}</span><br>
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Name</strong> {{ visitor.company_name }}<br></span>
                     <span v-if="visitor.purpose == 'Official'"><strong>Company Address</strong> {{ visitor.company_address }}<br></span>
                     <hr>
@@ -93,7 +74,7 @@
     </div>
 </template>
 
-<script>    
+<script>
     export default {
         props: ['api_token'],
         data() {
@@ -104,6 +85,7 @@
                     temp: '',
                     gender: '',
                     age: '',
+                    phone: '',
                     address: '',
                     purpose: '',
                     company_name: '',
@@ -130,7 +112,7 @@
 
             this.getVisitors();
         },
-        
+
         methods: {
             rowClicked(data) {
                 this.isLoading = true;
@@ -138,9 +120,10 @@
 
                 this.visitor.id = data.id;
                 this.visitor.name = data.name;
-                this.visitor.temp = data.temp; 
+                this.visitor.temp = data.temp;
                 this.visitor.gender = data.gender;
                 this.visitor.age = data.age;
+                this.visitor.phone = data.phone;
                 this.visitor.address = data.address;
                 this.visitor.purpose = data.purpose;
                 this.visitor.company_name = data.company_name;
@@ -157,7 +140,7 @@
                 })
                 .catch(function(error) {
                     toastr.error(error.message, 'Error');
-                });   
+                });
             },
 
             approve(bool) {
@@ -167,6 +150,7 @@
                 .post(`/api/visitor/approval/${this.visitor.id}?api_token=${this.api_token}`, {id: this.visitor.id, approve: bool})
                 .then((response) => {
                     console.log('Approval response', response);
+                    $('#visitorModal').modal('toggle');
                     this.getVisitors();
                 })
                 .catch(function(error) {

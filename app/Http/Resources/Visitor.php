@@ -17,7 +17,7 @@ class Visitor extends JsonResource
         $temp = '';
         if ( ! is_null($this->status)) {
             $temp = $this->status ? 'Approved' : 'Rejected';
-        }   
+        }
 
         return [
             'id' => $this->id,
@@ -25,6 +25,7 @@ class Visitor extends JsonResource
             'temp' => $this->temp,
             'gender' => $this->gender,
             'age' => $this->age,
+            'phone' => $this->phone,
             'address' => $this->address,
             'purpose' => $this->purpose,
             'company_name' => $this->company_name,

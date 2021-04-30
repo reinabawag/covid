@@ -51,6 +51,7 @@ class VisitorController extends Controller
         $visitor->temp = $request->temp;
         $visitor->gender = $request->gender;
         $visitor->age = $request->age;
+        $visitor->phone = $request->phone;
         $visitor->address = $request->address;
         $visitor->purpose = $request->purpose;
         $visitor->company_name = $request->company_name;

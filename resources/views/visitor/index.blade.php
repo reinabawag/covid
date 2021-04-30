@@ -19,11 +19,18 @@
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <input type="text" class="form-control" id="gender" v-model="info.gender" placeholder="Gender" required>
+                    <select name="" class="form-control" v-model="info.gender" id="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
                     <input type="number" class="form-control" id="age" v-model="info.age" placeholder="Age" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="text" class="form-control" id="phone" v-model="info.phone" placeholder="Phone number" required>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
@@ -56,8 +63,8 @@
                         <strong><em>{{ $question->title }}</em></strong><br>
                     @endif
                     <div class="form-group">
-                        <label for="{{ $index }}" style="text-align: justify">{{ $index + 1 }}. {{ $question->question }}</label>
-                        <select name="{{ $question->id }}" id="{{ $question->id }}" v-model="info.ans[{{ $question->id }}]" class="form-control" required>
+                        <label for="q-{{ $question->id }}" style="text-align: justify">{{ $index + 1 }}. {{ $question->question }}</label>
+                        <select name="{{ $question->id }}" id="q-{{ $question->id }}" v-model="info.ans[{{ $question->id }}]" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
                         </select>
@@ -66,7 +73,18 @@
                         @endif
                     </div>
                 @endforeach
-                <button class="btn btn-success btn-block" type="submit">Submit</button>
+
+                <hr>
+                <div class="form-check">
+                    <input class="form-check-input" v-model="isAccepted" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1" style="text-align: justify">
+                        I hereby authorize <em><b>American Wire & Cable Co., Inc.</b></em> to collect and process the data indicated herein for the purpose of contact tracing effecting control of the COVID-19 transmission.
+                        I understand that my personal information is protected by RA 10173 or the Data Privacy Act of 2012 and this form will be destroyed after 30 days from the date of accomplishment, following the National Archives of the Philippine protocol.
+                    </label>
+                </div>
+                <hr>
+
+                <button class="btn btn-success btn-block" :disabled=" ! isAccepted" type="submit">Submit</button>
             </form>
         </div>
         <div v-else class="col-md-12">
@@ -87,17 +105,19 @@
     <script>
         new Vue({
             el: '#app',
-            data: {      
+            data: {
                 info: {
                     ans: [0],
                     additional: [0],
+                    gender: 'Male',
                     purpose: 'Official',
-                },      
+                },
                 selected: 'Official',
                 isOfficial: true,
                 waitingForApproval: false,
                 message: 'Waiting for approval',
                 loader: true,
+                isAccepted : false
             },
             methods: {
                 formSubmit() {
@@ -110,7 +130,7 @@
                         toastr.success(response.data.message, 'Checklist submitted!');
                         console.log('Response from  submit', response.data);
                         this.waitingForApproval = true;
-                        
+
                         Echo
                         .channel(`visitor.${response.data.visitor.id}`)
                         .listen('ForApproval', (payload) => {

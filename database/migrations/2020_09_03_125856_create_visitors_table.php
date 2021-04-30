@@ -19,6 +19,7 @@ class CreateVisitorsTable extends Migration
             $table->string('temp');
             $table->string('gender');
             $table->string('age');
+            $table->string('phone');
             $table->string('address');
             $table->string('purpose');
             $table->string('company_name')->nullable();
