@@ -85,7 +85,7 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $request->validate([
-            'question' => 'required|min:5|max:191',
+            'question' => 'required|min:10',
         ]);
 
         $question = Question::find($request->id);

@@ -123,26 +123,14 @@
             .channel('new-visitor')
             .listen('NewVisitor', (payload) => {
                 console.log('New Visitor', payload);
+                // disabled payload
                 // this.visitors.push(payload.visitor);
                 this.getVisitors();
             });
 
-            // axios
-            // .get(`/api/visitors/get?api_token=${this.api_token}`)
-            // .then((response) => {
-            //     this.visitors = response.data.data;
-            //     this.meta = response.data.meta;
-            //     this.links = response.data.links;
-            // })
-            // .catch(function(error) {
-            //     console.log(error.message);
-            // });
-
             this.getVisitors();
         },
-        created() {            
-            
-        },
+        
         methods: {
             rowClicked(data) {
                 this.isLoading = true;
@@ -202,12 +190,6 @@
                 });
             }
         },
-
-        computed: {
-            isApproved: function () {
-                return this.visitors.isApproved
-            }
-        }
     }
 </script>
 

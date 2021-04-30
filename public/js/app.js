@@ -2063,23 +2063,13 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     Echo.channel('new-visitor').listen('NewVisitor', function (payload) {
-      console.log('New Visitor', payload); // this.visitors.push(payload.visitor);
+      console.log('New Visitor', payload); // disabled payload
+      // this.visitors.push(payload.visitor);
 
       _this.getVisitors();
-    }); // axios
-    // .get(`/api/visitors/get?api_token=${this.api_token}`)
-    // .then((response) => {
-    //     this.visitors = response.data.data;
-    //     this.meta = response.data.meta;
-    //     this.links = response.data.links;
-    // })
-    // .catch(function(error) {
-    //     console.log(error.message);
-    // });
-
+    });
     this.getVisitors();
   },
-  created: function created() {},
   methods: {
     rowClicked: function rowClicked(data) {
       var _this2 = this;
@@ -2133,11 +2123,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.message);
       });
-    }
-  },
-  computed: {
-    isApproved: function isApproved() {
-      return this.visitors.isApproved;
     }
   }
 });
