@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('visitor');
-});
+Route::redirect('/', '/visitor');
 
 Auth::routes();
 
