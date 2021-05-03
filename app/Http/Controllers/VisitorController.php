@@ -67,7 +67,7 @@ class VisitorController extends Controller
             $visitor->answers()->save($answer);
         }
 
-        event(new NewVisitor($visitor));
+        broadcast(new NewVisitor($visitor));
 
         return response()->json(['message' => 'Kindly wait for confirmation.', 'visitor' => $visitor]);
     }
@@ -131,7 +131,7 @@ class VisitorController extends Controller
         $visitor->status = $request->approve;
         $visitor->save();
 
-        if (event(new ForApproval($visitor, $request->approve)))
+        if (broadcast(new ForApproval($visitor, $request->approve)))
             return response()->json(true);
     }
 }

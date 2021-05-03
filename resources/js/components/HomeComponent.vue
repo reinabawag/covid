@@ -100,13 +100,12 @@
             }
         },
         mounted() {
-
             Echo
             .channel('new-visitor')
             .listen('NewVisitor', (payload) => {
                 console.log('New Visitor', payload);
                 // disabled payload
-                // this.visitors.push(payload.visitor);
+                this.visitors.push(payload.visitor);
                 this.getVisitors();
             });
 
@@ -144,8 +143,6 @@
             },
 
             approve(bool) {
-                console.log(bool);
-
                 axios
                 .post(`/api/visitor/approval/${this.visitor.id}?api_token=${this.api_token}`, {id: this.visitor.id, approve: bool})
                 .then((response) => {

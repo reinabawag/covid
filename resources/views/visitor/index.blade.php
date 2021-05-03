@@ -84,7 +84,7 @@
                 </div>
                 <hr>
 
-                <button class="btn btn-success btn-block" :disabled=" ! isAccepted" type="submit">Submit</button>
+                <button class="btn btn-success btn-block" :disabled="!isAccepted" type="submit">Submit</button>
             </form>
         </div>
         <div v-else class="col-md-12">
@@ -117,10 +117,13 @@
                 waitingForApproval: false,
                 message: 'Waiting for approval',
                 loader: true,
-                isAccepted : false
+                isAccepted : false,
             },
             methods: {
                 formSubmit() {
+
+                    this.waitingForApproval = true;
+
                     axios
                     .post(`/api/visitor`, this.info)
                     .then((response) => {
@@ -129,7 +132,6 @@
                         this.info.additional = [];
                         toastr.success(response.data.message, 'Checklist submitted!');
                         console.log('Response from  submit', response.data);
-                        this.waitingForApproval = true;
 
                         Echo
                         .channel(`visitor.${response.data.visitor.id}`)

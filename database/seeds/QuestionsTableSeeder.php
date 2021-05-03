@@ -31,6 +31,7 @@ class QuestionsTableSeeder extends Seeder
         ]);
 
         Question::create([
+            'title' => 'Other information (Iba pang impormasyon)',
             'question' => 'Have you had face-to-face contact with a probable or confirmed COVID-19 case within 1 meter and for the more than 15 minutes for the past 14 days? (May nakasalamuha ka ba ng probable o kumpirmadong pasyente na may COVID-19 mula sa isang metrong distansya or mas malapit pa ng mahigit 15 minuto sa makalipas na 14 araw?)',
         ]);
 
