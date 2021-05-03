@@ -100,16 +100,13 @@
             }
         },
         mounted() {
+            this.getVisitors();
+
             Echo
             .channel('new-visitor')
             .listen('NewVisitor', (payload) => {
-                console.log('New Visitor', payload);
-                // disabled payload
-                this.visitors.push(payload.visitor);
                 this.getVisitors();
             });
-
-            this.getVisitors();
         },
 
         methods: {
@@ -146,7 +143,6 @@
                 axios
                 .post(`/api/visitor/approval/${this.visitor.id}?api_token=${this.api_token}`, {id: this.visitor.id, approve: bool})
                 .then((response) => {
-                    console.log('Approval response', response);
                     $('#visitorModal').modal('toggle');
                     this.getVisitors();
                 })
@@ -160,7 +156,6 @@
             },
 
             getVisitors(page = 1) {
-                console.log('i was refreshed');
                 axios
                 .get(`/api/visitors/get?api_token=${this.api_token}&page=${page}&query=`+encodeURI(this.searchQuery))
                 .then((response) => {

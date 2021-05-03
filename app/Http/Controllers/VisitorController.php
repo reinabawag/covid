@@ -35,7 +35,6 @@ class VisitorController extends Controller
         $query = $request->input('query');
         $visitors = Visitor::where('name', 'like', "%$query%")->orderBy('created_at', 'desc')->paginate(10);
         return new VisitorCollection($visitors);
-        // return new VisitorCollection(Visitor::whereDate('created_at', today())->latest()->get());
     }
 
     /**
